@@ -46,11 +46,24 @@ public class ShadeRequest
 
     private boolean shadeSourcesContent;
 
+    private Set<File> files;
+
+    public Set<File> getFiles() 
+    {
+        return files;
+    }    
+
+    public void setFiles( Set<File> files )
+    {
+        this.files = files;
+    }
+    
+    
     public Set<File> getJars()
     {
         return jars;
     }
-
+    
     /**
      * Which jars to shade.
      *

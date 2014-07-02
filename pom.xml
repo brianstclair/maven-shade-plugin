@@ -30,7 +30,7 @@ under the License.
   </parent>
 
   <artifactId>maven-shade-plugin</artifactId>
-  <version>2.3-SNAPSHOT</version>
+  <version>2.3-sfdc-03</version>
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven Shade Plugin</name>
@@ -52,12 +52,6 @@ under the License.
     <system>jira</system>
     <url>http://jira.codehaus.org/browse/MSHADE</url>
   </issueManagement>
-  <distributionManagement>
-    <site>
-      <id>apache.website</id>
-      <url>scm:svn:https://svn.apache.org/repos/infra/websites/production/maven/content/${maven.site.path}</url>
-    </site>
-  </distributionManagement>
 
   <properties>
     <mavenVersion>3.0</mavenVersion>
@@ -257,4 +251,16 @@ under the License.
       </build>
     </profile>
   </profiles>
+  
+  <distributionManagement>
+    <repository>
+      <id>nexus</id>
+      <url>https://nexus.soma.salesforce.com/nexus/content/repositories/releases/</url>
+    </repository>
+    <snapshotRepository>
+      <id>nexus</id>
+      <url>https://nexus.soma.salesforce.com/nexus/content/repositories/snapshots/</url>
+    </snapshotRepository>
+  </distributionManagement>
+  
 </project>
