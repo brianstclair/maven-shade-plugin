@@ -375,6 +375,9 @@ public class ShadeMojo extends AbstractMojo implements Contextualizable {
   @Parameter(defaultValue = "false")
   private boolean shadeTestJar;
 
+  @Parameter(defaultValue = "false", property = "maven.shade.skip")
+  private boolean skipShade;
+
   /**
    * @since 1.6
    */
@@ -389,6 +392,11 @@ public class ShadeMojo extends AbstractMojo implements Contextualizable {
    */
   public void execute() throws MojoExecutionException {
 
+    if (skipShade) {
+      getLog().info("Skipping shade processing.");
+      return;
+    }
+
     setupHintedShader();
 
     Set<File> artifacts = new LinkedHashSet<File>();
@@ -400,10 +408,12 @@ public class ShadeMojo extends AbstractMojo implements Contextualizable {
 
     if (artifactSelector.isSelected(project.getArtifact()) && !"pom".equals(project.getArtifact().getType())) {
       /*
-       * if ( invalidMainArtifact() ) { getLog().error( "The project main artifact does not exist. This could have the following" ); getLog().error( "reasons:" ); getLog().error( "- You have invoked the goal directly from the command line. This is not" ); getLog().error(
-       * "  supported. Please add the goal to the default lifecycle via an" ); getLog().error( "  <execution> element in your POM and use \"mvn package\" to have it run." ); getLog().error( "- You have bound the goal to a lifecycle phase before \"package\". Please" ); getLog().error(
-       * "  remove this binding from your POM such that the goal will be run in" ); getLog().error( "  the proper phase." ); getLog().error( "- You removed the configuration of the maven-jar-plugin that produces the main artifact." ); throw new MojoExecutionException(
-       * "Failed to create shaded artifact, " + "project main artifact does not exist." ); }
+       * if ( invalidMainArtifact() ) { getLog().error( "The project main artifact does not exist. This could have the following" ); getLog().error( "reasons:" ); getLog().error(
+       * "- You have invoked the goal directly from the command line. This is not" ); getLog().error( "  supported. Please add the goal to the default lifecycle via an" ); getLog().error(
+       * "  <execution> element in your POM and use \"mvn package\" to have it run." ); getLog().error( "- You have bound the goal to a lifecycle phase before \"package\". Please" ); getLog().error(
+       * "  remove this binding from your POM such that the goal will be run in" ); getLog().error( "  the proper phase." ); getLog().error(
+       * "- You removed the configuration of the maven-jar-plugin that produces the main artifact." ); throw new MojoExecutionException( "Failed to create shaded artifact, " +
+       * "project main artifact does not exist." ); }
        */
 
       File projectClasses = new File(project.getBuild().getOutputDirectory());

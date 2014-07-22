@@ -30,7 +30,7 @@ under the License.
   </parent>
 
   <artifactId>maven-shade-plugin</artifactId>
-  <version>2.3-sfdc-03</version>
+  <version>2.3-sfdc-04</version>
   <packaging>maven-plugin</packaging>
 
   <name>Apache Maven Shade Plugin</name>
